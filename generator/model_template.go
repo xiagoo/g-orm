@@ -38,12 +38,12 @@ func (obj {{.Name}}) TableName() string {
 var objApi string = `
 // Start of the {{.Name}} APIs.
 func (m *Model) Insert{{.Name}}({{.LowerName}} *{{.Name}}) error {
-	return m.Master.Create({{.LowerName}}).Error
+	return m.master.Create({{.LowerName}}).Error
 }
 
 func (m *Model) Get{{.Name}}ByPK(id {{.PrimaryField.Type}}) (*{{.Name}}, error) {
 	var {{.LowerName}} {{.Name}}
-	err := m.Slave.Where("id = ?", id).Find(&{{.LowerName}}).Error
+	err := m.slave.Where("id = ?", id).Find(&{{.LowerName}}).Error
 	if err == sql.ErrNoRows {
 		return nil, nil
 	} else if err == nil {
